@@ -1,0 +1,59 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color: #182022;
+  background: #f7f0e4;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  font-family: "DM Sans", sans-serif;
+  background:
+    radial-gradient(circle at top, rgba(242, 181, 68, 0.24), transparent 30%),
+    linear-gradient(180deg, #fbf5ea 0%, #f6efdf 48%, #efe3cb 100%);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-heading;
+  }
+
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    @apply outline-none ring-2 ring-paprika ring-offset-2 ring-offset-card;
+  }
+}
+
+@layer components {
+  .admin-label { @apply block text-sm font-semibold text-ink; }
+  .admin-input { @apply mt-2 min-h-12 w-full rounded-2xl border border-line bg-white px-4 py-3 font-normal disabled:opacity-50; }
+  .admin-primary { @apply min-h-12 rounded-full bg-ink px-6 py-3 text-sm font-semibold text-white transition hover:bg-olive disabled:cursor-not-allowed disabled:opacity-50; }
+  .admin-secondary { @apply min-h-11 rounded-full border border-line bg-white px-4 py-2 text-sm font-semibold transition hover:bg-shell disabled:opacity-40; }
+  .admin-error { @apply rounded-2xl bg-paprika/10 px-4 py-3 text-sm text-paprika; }
+  .admin-success { @apply rounded-2xl bg-emerald-100 px-4 py-3 text-sm text-emerald-800; }
+  .panel {
+    @apply rounded-[28px] border border-line bg-card shadow-lift;
+  }
+
+  .status-pill {
+    @apply inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em];
+  }
+}
