@@ -2,6 +2,32 @@
 
 React 18 + Vite + Tailwind frontend for customer QR ordering and restaurant administration.
 
+## Production Release
+
+This UI remains in its own repository. Hosting is configured in the
+[backend deployment repository](https://github.com/NihalBlone/restaurant-ordering), whose Dockerfile
+fetches the published UI commit pinned in `deploy/frontend.ref` and packages its build inside Spring Boot.
+UI, API, uploads, and WebSocket use one HTTPS origin. Do not create a separate static hosting service
+without redesigning cookie, CSRF, and WebSocket-origin handling.
+
+After committing and pushing a UI update, select that version from the backend repository:
+
+```sh
+# Run from this UI repository, after pushing its commit to origin/main.
+UI_SHA=$(git rev-parse HEAD)
+cd /Users/nihaltamang/Documents/personal/qr-restaurant-ordering-system
+node scripts/pin-frontend.mjs "$UI_SHA"
+git add deploy/frontend.ref
+git commit -m "Release updated restaurant UI"
+git push origin main
+```
+
+A UI push alone does not deploy. Both repositories have CI, and backend CI also tests the pinned UI.
+The UI repository must remain publicly fetchable for this Docker build; never put a GitHub token in a
+Dockerfile, build argument, or Git URL. A private UI repo needs a separate secret-safe artifact strategy.
+See the [full deployment guide](https://github.com/NihalBlone/restaurant-ordering/blob/main/docs/DEPLOYMENT.md)
+for first-time push commands, Render setup, domain purchase, email, and secrets.
+
 ## Run
 
 Start the Spring Boot backend first, then:
